@@ -16,10 +16,12 @@ This is a plain static site (HTML, CSS, JS and image assets, all referenced with
 
 `.github/workflows/deploy-pages.yml` publishes every push to `main`. It copies the site files into `_site` (excluding `.git` and `.github`), adds `.nojekyll` so directories are served as-is, and deploys through the official GitHub Pages actions.
 
-Two settings have to be in place on the repository before the first deployment succeeds:
+Two settings have to be in place on the repository before the first deployment succeeds, and both are manual:
 
 1. **Pages must be available.** GitHub Pages only serves private repositories on paid organization plans. If the organization is on the free plan, make this repository public first (Settings → General → Danger Zone → Change visibility).
-2. **Pages source must be "GitHub Actions"** (Settings → Pages → Build and deployment → Source). The workflow requests this automatically, but it can also be set by hand.
+2. **Pages must be turned on with "GitHub Actions" as the source** (Settings → Pages → Build and deployment → Source). The workflow asks for this through `enablement: true`, but the token available to a workflow run is not allowed to create the Pages site — the first run failed with `Create Pages site failed. Error: Resource not accessible by integration`. Once Pages exists, that step becomes a no-op and later pushes deploy on their own.
+
+After turning Pages on, re-run the latest workflow run (Actions → Deploy preview to GitHub Pages → Re-run jobs), or push any commit to `main`.
 
 Once deployed, the preview is at `https://estesmedia2022.github.io/platypus-travel-site-preview/`.
 
