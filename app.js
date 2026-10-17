@@ -50,10 +50,7 @@ document.querySelectorAll('[data-spin]').forEach(panel=>{
    previousScroll=current;
    const rect=panel.getBoundingClientRect();
    if(!delta||drag||reducedMotion.matches||rect.bottom<=0||rect.top>=innerHeight)return;
-   if(form!=='inflated'){
-    form='inflated';preload(form);
-    panel.querySelectorAll('[data-form]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.form===form)));
-   }
+   // Scrolling rotates the selected form; only the form buttons change it.
    scrollDistance+=delta*72/(innerHeight+rect.height);
    const advance=Math.trunc(scrollDistance);
    scrollDistance-=advance;
