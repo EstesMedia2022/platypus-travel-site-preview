@@ -41,7 +41,7 @@ function site(pathname, height = 900) {
 test('all entry pages render their content and resolve local navigation links', () => {
   for (const [file, heading] of [['index.html', 'One pillow.'], ['product.html', 'Platypus Cloud'], ['about.html', 'A little more comfort.']]) {
     const entry = readFileSync(join(root, file), 'utf8');
-    assert.match(entry, /<script src="app.js" defer>/);
+    assert.match(entry, /<script src="app\.js(?:\?v=[a-f0-9]+)?" defer>/);
     const {html} = site(`/platypus-travel-site-preview/${file}`);
     assert.ok(html.includes(heading), `${file} renders the correct page`);
     assert.ok(html.includes('href="product.html"'), `${file} links to the product page`);
